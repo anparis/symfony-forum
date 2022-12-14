@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formulaire des Categories{% endblock %}
+
+{% block body %}
+<main>
+{% if edit %}
+<h1> Edit Categorie </h1>
+{%else%}
+<h1> Ajout Categorie </h1>
+{%endif%}
+
+{{ form_start(formCategorie) }}
+  {{ form_row(formCategorie.nom) }}
+{{ form_end(formCategorie) }}
+</main>
+{% endblock %}
