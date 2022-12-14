@@ -69,9 +69,9 @@ class Post
         return $this;
     }
 
-    public function getDatePublication(): ?\DateTimeInterface
+    public function getDatePublication(): ?string
     {
-        return $this->date_publication;
+        return $this->date_publication->format('\L\e d/m/Y à H:i:s');
     }
 
     public function setDatePublication(\DateTimeInterface $date_publication): self
@@ -83,6 +83,6 @@ class Post
 
     public function __toString()
     {
-      return "Post publié par ".$this->auteur->getPseudo()." le ".$this->date_publication->format('d-m-Y');
+      return "Post publié par ".$this->auteur->getPseudo()." : ".$this->texte;
     }
 }

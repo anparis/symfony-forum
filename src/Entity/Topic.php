@@ -35,6 +35,7 @@ class Topic
     private ?Categorie $categorie = null;
 
     #[ORM\OneToMany(mappedBy: 'topic', targetEntity: Post::class, orphanRemoval: true)]
+    #[ORM\OrderBy(['date_publication'=>'ASC'])]
     private Collection $posts;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
@@ -140,9 +141,9 @@ class Topic
         return $this;
     }
 
-    public function getDatePublication(): ?\DateTimeInterface
+    public function getDatePublication(): ?string
     {
-        return $this->date_publication;
+        return $this->date_publication->format('\L\e d/m/Y à H:i:s');
     }
 
     public function setDatePublication(\DateTimeInterface $date_publication): self
@@ -154,6 +155,6 @@ class Topic
 
     public function __toString()
     {
-      return "Topic crée par ".$this->auteur." le ".$this->date_publication->format("d/m/Y")." a ".$this->date_publication->format('H:i:s');
+      return "Topic : ".$this->titre;
     }
 }
