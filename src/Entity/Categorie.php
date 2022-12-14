@@ -19,6 +19,7 @@ class Categorie
     private ?string $nom = null;
 
     #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Topic::class)]
+    #[ORM\OrderBy(['date_publication'=>'DESC'])]
     private Collection $topics;
 
     public function __construct()

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PostController!{% endblock %}
+{% block title %}Categorie list{% endblock %}
 
 {% block body %}
 <style>
@@ -9,12 +9,10 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/aparis/Valet/sites/symfony-forum/src/Controller/PostController.php'|file_link(0) }}">src/Controller/PostController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/aparis/Valet/sites/symfony-forum/templates/post/index.html.twig'|file_link(0) }}">templates/post/index.html.twig</a></code></li>
-    </ul>
+    {% for post in posts %}
+      <ul>
+        <li><a href="#">{{post}}</a></li>
+      </ul>
+    {% endfor %}
 </div>
 {% endblock %}

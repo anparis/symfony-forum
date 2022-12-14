@@ -11,7 +11,7 @@
 <div class="example-wrapper">
     {% for categorie in categories %}
       <ul>
-        <li><a href="{{path('show_categorie', {'id':categorie.id})}}">python</a></li>
+        <li><a href="{{path('show_categorie', {'id':categorie.id})}}">{{categorie}}</a></li>
       </ul>
     {% endfor %}
 </div>
