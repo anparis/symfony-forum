@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\TopicRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use IntlDateFormatter;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\TopicRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: TopicRepository::class)]
 class Topic
@@ -15,9 +16,6 @@ class Topic
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date_publication = null;
 
     #[ORM\Column(length: 100)]
     private ?string $titre = null;
@@ -39,6 +37,9 @@ class Topic
     #[ORM\OneToMany(mappedBy: 'topic', targetEntity: Post::class, orphanRemoval: true)]
     private Collection $posts;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $date_publication = null;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -47,18 +48,6 @@ class Topic
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getDatePublication(): ?\DateTimeInterface
-    {
-        return $this->date_publication;
-    }
-
-    public function setDatePublication(\DateTimeInterface $date_publication): self
-    {
-        $this->date_publication = $date_publication;
-
-        return $this;
     }
 
     public function getTitre(): ?string
@@ -149,5 +138,22 @@ class Topic
         }
 
         return $this;
+    }
+
+    public function getDatePublication(): ?\DateTimeInterface
+    {
+        return $this->date_publication;
+    }
+
+    public function setDatePublication(\DateTimeInterface $date_publication): self
+    {
+        $this->date_publication = $date_publication;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+      return "Topic crée par ".$this->auteur." le ".$this->date_publication->format("d/m/Y")." a ".$this->date_publication->format('H:i:s');
     }
 }

@@ -14,6 +14,14 @@
         {% endblock %}
     </head>
     <body>
+        <nav>
+          <ul>
+            <li><a href="{{ path('app_categorie') }}">Categories</a></li>
+            <li><a href="{{ path('app_topic') }}">Topics</a></li>
+            <li><a href="{{ path('app_post') }}">Posts</a></li>
+            <li><a href="{{ path('app_auteur') }}">Auteurs</a></li>
+          </ul>
+        </nav>
         {% block body %}{% endblock %}
     </body>
 </html>

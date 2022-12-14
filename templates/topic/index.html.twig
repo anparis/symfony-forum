@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des topics!{% endblock %}
+
+{% block body %}
+    {% for topic in topics %}
+      <p>{{topic}}</p>
+    {% endfor %}
+{% endblock %}
