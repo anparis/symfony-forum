@@ -11,13 +11,10 @@
 <div class="example-wrapper">
     {% for categorie in categories %}
       <ul>
-        <li><a href="{{path('show_categorie', {'id':categorie.id})}}">{{categorie}}</a></li>
-      {% if(app.user) %}
-        <a href="{{path('edit_categorie', {'id':categorie.id})}}">edit</a>/<a href="{{path('del_categorie', {'id':categorie.id})}}">delete</a>
-      {% endif %}
+        <li><a class='card' href="{{path('show_categorie', {'id':categorie.id})}}">{{categorie}}</a></li>
       </ul>
     {% endfor %}
-    {% if(app.user) %}
+    {% if app.user %}
     <h2>Ajouter une categorie</h2>
     <form method="POST" action="{{ path('add_categorie') }}">
       <input type="text" min="1" max="50" name="nom"/>

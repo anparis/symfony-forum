@@ -77,6 +77,7 @@ class TopicController extends AbstractController
   #[IsGranted('ROLE_USER')]
   public function edit(ManagerRegistry $doctrine, Topic $topic = null, Request $request): Response
   {
+    if($this->getUser()->getId() == $topic->getAuteur()->getId()){
     $form = $this->createForm(TopicType::class, $topic);
     $form->handleRequest($request);
 
@@ -99,16 +100,22 @@ class TopicController extends AbstractController
       'formTopic' => $form->createView(),
       'edit' => $topic->getId()
     ]);
+    }
+    else{
+      return $this->redirectToRoute('show_categorie',['id'=>$topic->getCategorie()->getId()]);
+    }
   }
 
   #[Route('/topic/{id}/delete', name: 'delete_topic')]
   #[IsGranted('ROLE_USER')]
   public function deltopic(Topic $topic, ManagerRegistry $doctrine): Response
   {
+    if($this->getUser()->getId() == $topic->getAuteur()->getId()){
     // Manager de doctrine, permet d'acceder au persist et au flush
     $entityManager = $doctrine->getManager();
     $entityManager->remove($topic);
     $entityManager->flush();
+    }
 
     return $this->redirectToRoute('show_categorie',['id'=>$topic->getCategorie()->getId()]);
   }
@@ -117,6 +124,7 @@ class TopicController extends AbstractController
   #[IsGranted('ROLE_USER')]
   public function verouillerTopic(Topic $topic, ManagerRegistry $doctrine): Response
   {
+    if($this->getUser()->getId() == $topic->getAuteur()->getId()){
     $entityManager = $doctrine->getManager();
     if($topic->isVerouille())
       $topic->setVerouille(0);
@@ -125,7 +133,7 @@ class TopicController extends AbstractController
 
     $entityManager->persist($topic);
     $entityManager->flush();
-
+    }
     return $this->redirectToRoute('show_categorie',['id'=>$topic->getCategorie()->getId()]);
   }
 
@@ -133,6 +141,7 @@ class TopicController extends AbstractController
   #[IsGranted('ROLE_USER')]
   public function resoudreTopic(Topic $topic, ManagerRegistry $doctrine): Response
   {
+    if($this->getUser()->getId() == $topic->getAuteur()->getId()){
     $entityManager = $doctrine->getManager();
     if($topic->isResolu())
       $topic->setResolu(0);
@@ -141,7 +150,7 @@ class TopicController extends AbstractController
 
     $entityManager->persist($topic);
     $entityManager->flush();
-
+    }
     return $this->redirectToRoute('show_categorie',['id'=>$topic->getCategorie()->getId()]);
   }
 

@@ -18,27 +18,26 @@
 </style>
 <a href="{{path('show_categorie',{'id':topic.categorie.id})}}">Revenir aux topics</a>
 <h1>{{topic}}</h1>
-<p>Statut : 
-{% if not topic.verouille and not topic.resolu%}
-non résolu
+<p>Statut :
+  {% if not topic.verouille and not topic.resolu%}
+  non résolu
 
-{% else %}
+  {% else %}
 
-{% if topic.verouille %}
-vérouillé
-{% endif %}
+  {% if topic.verouille %}
+  vérouillé
+  {% endif %}
 
-{% if topic.resolu %}
-résolu
-{% endif %}
+  {% if topic.resolu %}
+  résolu
+  {% endif %}
 </p>
-
-{% endif %}
+  {% endif %}
 <div class="example-wrapper">
   {% for post in topic.posts %}
   <ul>
     <li>{{post}}</li>
-    {% if(app.user) %}
+    {% if app.user and app.user.id==topic.auteur.id %}
     <p><a href="{{path('edit_post', {'id':post.id})}}">edit</a>/<a
         href="{{path('delete_post', {'id':post.id})}}">delete</a></p>
     {% endif %}

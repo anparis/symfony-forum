@@ -33,7 +33,7 @@ class PostController extends AbstractController
     $post = $request->request;
     $user_id = $this->getUser()->getId();
     $postTexte = $post->filter('post');
-    if ($post->has('submit') && $postTexte && $user_id) {
+    if ($post->has('submit') && $postTexte) {
       $entityManager = $doctrine->getManager();
       // default -> to be replaced with connected user
       $auteur = $doctrine->getRepository(Auteur::class)->findOneBy(['id' => $user_id]);
@@ -63,6 +63,7 @@ class PostController extends AbstractController
   #[IsGranted('ROLE_USER')]
   public function edit(ManagerRegistry $doctrine, Post $post = null, Request $request): Response
   {
+    if($this->getUser()->getId() == $post->getAuteur()->getId()){
     $form = $this->createForm(PostType::class, $post);
     $form->handleRequest($request);
 
@@ -85,17 +86,22 @@ class PostController extends AbstractController
       'formPost' => $form->createView(),
       'edit' => $post->getId()
     ]);
+    }
+    else{
+      return $this->redirectToRoute('show_topic', ['id'=> $post->getTopic()->getId()]);
+    }
   }
 
   #[Route('/post/{id}/delete', name: 'delete_post')]
   #[IsGranted('ROLE_USER')]
   public function delpost(Post $post, ManagerRegistry $doctrine): Response
   {
+    if($this->getUser()->getId() == $post->getAuteur()->getId()){
     // Manager de doctrine, permet d'acceder au persist et au flush
     $entityManager = $doctrine->getManager();
     $entityManager->remove($post);
     $entityManager->flush();
-
+    }
     return $this->redirectToRoute('show_topic',['id'=>$post->getTopic()->getId()]);
   }
 }
