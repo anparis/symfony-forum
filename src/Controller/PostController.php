@@ -31,11 +31,12 @@ class PostController extends AbstractController
   public function add(Topic $topic, Request $request, ManagerRegistry $doctrine)
   {
     $post = $request->request;
+    $user_id = $this->getUser()->getId();
     $postTexte = $post->filter('post');
-    if ($post->has('submit') && $postTexte) {
+    if ($post->has('submit') && $postTexte && $user_id) {
       $entityManager = $doctrine->getManager();
       // default -> to be replaced with connected user
-      $auteur = $doctrine->getRepository(Auteur::class)->findOneBy(['id' => 5]);
+      $auteur = $doctrine->getRepository(Auteur::class)->findOneBy(['id' => $user_id]);
       // give actual date to every posts created
       $date = new DateTime();
 

@@ -26,27 +26,19 @@ class TopicController extends AbstractController
     ]);
   }
 
-  // #[Route('/categorie/{id}', name: 'add_topic')]
-  // #[IsGranted('ROLE_USER')]
-  // public function add(Topic $topic): Response
-  // {
-  //   return $this->render('topic/show.html.twig', [
-  //     'topic' => $topic
-  //   ]);
-  // }
-
   #[Route('/categorie/{id}/add', name: 'add_topic')]
   #[IsGranted('ROLE_USER')]
   public function addCategorieTopic(ManagerRegistry $doctrine, Categorie $categorie = null, Request $request): Response
   {
     $post = $request->request;
+    $user_id = $this->getUser()->getId();
     $titreTopic = $post->filter('titreTopic');
     $premierPost = $post->filter('premierPost');
-    if ($post->has('submit') && $titreTopic && $premierPost) {
+    if ($post->has('submit') && $titreTopic && $premierPost && $user_id) {
       $entityManager = $doctrine->getManager();
 
       // default -> to be replaced with connected user
-      $auteur =  $doctrine->getRepository(Auteur::class)->findOneBy(['id' => 5]);
+      $auteur =  $doctrine->getRepository(Auteur::class)->findOneBy(['id' => $user_id]);
       // give actual date to every topics created
       $date = new DateTime();
 
