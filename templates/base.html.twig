@@ -15,12 +15,19 @@
     </head>
     <body>
         <nav>
+          {% if app.user %}
           <ul>
             <li><a href="{{ path('app_categorie') }}">Categories</a></li>
             <li><a href="{{ path('app_topic') }}">Topics</a></li>
             <li><a href="{{ path('app_post') }}">Posts</a></li>
             <li><a href="{{ path('app_auteur') }}">Auteurs</a></li>
+            <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
           </ul>
+          {% else %}
+            <a href="{{ path('app_categorie') }}">Categories</a>
+            <a class="btn" href="{{ path('app_register') }}">Inscription</a>
+            <a class="btn" href="{{ path('app_login') }}">Connexion</a>
+          {% endif %}
         </nav>
         {% block body %}{% endblock %}
     </body>
