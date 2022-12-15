@@ -1,6 +1,16 @@
 @import "~bootstrap/scss/bootstrap";
 
-
 body {
-    background-color: lightgray;
+    background-color: white;
+    nav{
+      ul{
+        li{
+          padding: 10px;
+        }
+      }
+    }
+
+    .btn-categorie{
+      margin: 2em;
+    }
 }

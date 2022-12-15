@@ -3,7 +3,8 @@
 {% block title %}Show Topic details{% endblock %}
 
 {% block body %}
-<a href="{{path('show_categorie',{'id':topic.categorie.id})}}">Revenir aux topics</a>
+<div class="container py-4 px-3 mx-auto">
+<a class="btn btn-light" href="{{path('show_categorie',{'id':topic.categorie.id})}}">Revenir aux topics</a>
 <h1>{{topic}}</h1>
 <p>Statut :
   {% if not topic.verouille and not topic.resolu%}
@@ -20,7 +21,6 @@
   {% endif %}
 </p>
   {% endif %}
-<div class="example-wrapper">
   {% for post in topic.posts %}
   <ul>
     <li>{{post}}</li>

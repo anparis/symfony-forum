@@ -4,36 +4,43 @@
 
 {% block body %}
 
-<a href="{{path('app_categorie')}}">Revenir aux catégories</a>
-<div class="example-wrapper">
+<div class="container py-4 px-3 mx-auto">
+  <a class="btn btn-light" href="{{path('app_categorie')}}">Revenir aux catégories</a>
   <h1>Liste Topics</h1>
   {% for topic in categorie.topics %}
   <ul>
-    <li><a href="{{path('show_topic', {'id':topic.id})}}">{{topic}}</a>
-      <p>{{topic.datePublication | date("d/m/Y à G:i:s")}}</p>
-      <p>{{topic.posts | length}} <i class="fas fa-comment-alt"></i></p>
+    <div class="card">
+      <div class="card-header">
+        <a href="{{path('show_topic', {'id':topic.id})}}">{{topic}}</a>
+      </div>
+      <div class="card-body">
+        
+      </div>
+    </div>
+    <li>
+      <div class="d-flex">
+      <p class="px-2">{{topic.datePublication | date("d/m/Y à G:i:s")}}</p>
+      <p class="px-2">{{topic.posts | length}} <i class="fas fa-comment-alt"></i></p>
+      </div>
       {% if app.user and app.user.id==topic.auteur.id %}
-      <p>
-        {% if not topic.verouille and not topic.resolu%}
+      <div class="d-flex">
+      <p class="px-2">
+        {% if not topic.verouille and not topic.resolu %}
         <a href="{{path('verouiller_topic', {'id':topic.id})}}"><i class="fa fa-lock" aria-hidden="true"></i></a>
         <a href="{{path('resoudre_topic', {'id':topic.id})}}"><i class="fas fa-check-square"></i></a>
-
         {% else %}
-
         {% if topic.verouille %}
         <a href="{{path('verouiller_topic', {'id':topic.id})}}"><i class="fa fa-unlock-alt" aria-hidden="true"></i></a>
         {% endif %}
-
         {% if topic.resolu %}
         <a href="{{path('resoudre_topic', {'id':topic.id})}}"><i class="fas fa-user-edit"></i></a>
         {% endif %}
-
         {% endif %}
-
       </p>
-      <p><a href="{{path('edit_topic', {'id':topic.id})}}"><i class="fas fa-edit"></i></a> / <a
-          href="{{path('delete_topic', {'id':topic.id})}}"><i class="fa fa-trash" aria-hidden="true"></i>
+      <p class="px-2"><a href="{{path('edit_topic', {'id':topic.id})}}"><i class="fas fa-edit"></i></a>  
+        <a href="{{path('delete_topic', {'id':topic.id})}}"><i class="fa fa-trash" aria-hidden="true"></i>
         </a></p>
+      </div>
       {% endif %}
 
     </li>
