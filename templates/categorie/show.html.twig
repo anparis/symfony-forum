@@ -17,6 +17,7 @@
   }
 </style>
 <div class="example-wrapper">
+<a href="{{path('app_categorie')}}">Revenir aux catégories</a>
   {% for topic in categorie.topics %}
   <ul>
     <li><a href="{{path('show_topic', {'id':topic.id})}}">{{topic}}</a>

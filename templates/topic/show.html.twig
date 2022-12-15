@@ -16,6 +16,7 @@
     padding: 2px 6px;
   }
 </style>
+<a href="{{path('show_categorie',{'id':topic.categorie.id})}}">Revenir aux topics</a>
 <h1>{{topic}}</h1>
 <p>Statut : 
 {% if not topic.verouille and not topic.resolu%}
