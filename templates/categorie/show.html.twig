@@ -19,8 +19,28 @@
 <div class="example-wrapper">
   {% for topic in categorie.topics %}
   <ul>
-    <li><a href="{{path('show_topic', {'id':topic.id})}}">{{topic}}</a></li>
-    <p><a href="{{path('edit_topic', {'id':topic.id})}}">edit</a>/<a href="{{path('delete_topic', {'id':topic.id})}}">delete</a></p>
+    <li><a href="{{path('show_topic', {'id':topic.id})}}">{{topic}}</a>
+      <p>
+        {% if not topic.verouille and not topic.resolu%}
+          <a href="{{path('verouiller_topic', {'id':topic.id})}}">Verouiller</a>
+          <a href="{{path('resoudre_topic', {'id':topic.id})}}">Resolu</a>
+
+        {% else %}
+
+          {% if topic.verouille %}
+            <a href="{{path('verouiller_topic', {'id':topic.id})}}">Deverouiller</a>
+          {% endif %}
+
+          {% if topic.resolu %}
+            <a href="{{path('resoudre_topic', {'id':topic.id})}}">Non Resolu</a>
+          {% endif %}
+        
+        {% endif %}
+
+      </p>
+      <p><a href="{{path('edit_topic', {'id':topic.id})}}">edit</a> / <a
+          href="{{path('delete_topic', {'id':topic.id})}}">delete</a></p>
+    </li>
   </ul>
   {% endfor %}
   <h2>Créer un nouveau Topic</h2>

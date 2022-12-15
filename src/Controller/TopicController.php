@@ -116,6 +116,36 @@ class TopicController extends AbstractController
     return $this->redirectToRoute('show_categorie',['id'=>$topic->getCategorie()->getId()]);
   }
 
+  #[Route('/topic/{id}/verouiller', name: 'verouiller_topic')]
+  public function verouillerTopic(Topic $topic, ManagerRegistry $doctrine): Response
+  {
+    $entityManager = $doctrine->getManager();
+    if($topic->isVerouille())
+      $topic->setVerouille(0);
+    else
+      $topic->setVerouille(1);
+
+    $entityManager->persist($topic);
+    $entityManager->flush();
+
+    return $this->redirectToRoute('show_categorie',['id'=>$topic->getCategorie()->getId()]);
+  }
+
+  #[Route('/topic/{id}/resoudre', name: 'resoudre_topic')]
+  public function resoudreTopic(Topic $topic, ManagerRegistry $doctrine): Response
+  {
+    $entityManager = $doctrine->getManager();
+    if($topic->isResolu())
+      $topic->setResolu(0);
+    else
+      $topic->setResolu(1);
+
+    $entityManager->persist($topic);
+    $entityManager->flush();
+
+    return $this->redirectToRoute('show_categorie',['id'=>$topic->getCategorie()->getId()]);
+  }
+
   #[Route('/topic/{id}', name: 'show_topic')]
   public function showTopics(Topic $topic): Response
   {

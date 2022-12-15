@@ -17,11 +17,28 @@
   }
 </style>
 <h1>{{topic}}</h1>
+<p>Statut : 
+{% if not topic.verouille and not topic.resolu%}
+non résolu
+
+{% else %}
+
+{% if topic.verouille %}
+vérouillé
+{% endif %}
+
+{% if topic.resolu %}
+résolu
+{% endif %}
+</p>
+
+{% endif %}
 <div class="example-wrapper">
   {% for post in topic.posts %}
   <ul>
     <li>{{post}}</li>
-    <p><a href="{{path('edit_post', {'id':post.id})}}">edit</a>/<a href="{{path('delete_post', {'id':post.id})}}">delete</a></p>
+    <p><a href="{{path('edit_post', {'id':post.id})}}">edit</a>/<a
+        href="{{path('delete_post', {'id':post.id})}}">delete</a></p>
   </ul>
   {% endfor %}
   <h2>Créer un nouveau Post</h2>
