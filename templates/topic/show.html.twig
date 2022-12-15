@@ -38,10 +38,13 @@ résolu
   {% for post in topic.posts %}
   <ul>
     <li>{{post}}</li>
+    {% if(app.user) %}
     <p><a href="{{path('edit_post', {'id':post.id})}}">edit</a>/<a
         href="{{path('delete_post', {'id':post.id})}}">delete</a></p>
+    {% endif %}
   </ul>
   {% endfor %}
+  {% if(app.user) %}
   <h2>Créer un nouveau Post</h2>
   <form method="POST" action="{{path('add_post',{'id':topic.id})}}">
     <p>
@@ -50,5 +53,6 @@ résolu
     </p>
     <input type="submit" name="submit">
   </form>
+  {% endif %}
 </div>
 {% endblock %}

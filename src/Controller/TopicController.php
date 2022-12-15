@@ -12,6 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TopicController extends AbstractController
@@ -25,15 +26,17 @@ class TopicController extends AbstractController
     ]);
   }
 
-  #[Route('/categorie/{id}', name: 'add_topic')]
-  public function add(Topic $topic): Response
-  {
-    return $this->render('topic/show.html.twig', [
-      'topic' => $topic
-    ]);
-  }
+  // #[Route('/categorie/{id}', name: 'add_topic')]
+  // #[IsGranted('ROLE_USER')]
+  // public function add(Topic $topic): Response
+  // {
+  //   return $this->render('topic/show.html.twig', [
+  //     'topic' => $topic
+  //   ]);
+  // }
 
   #[Route('/categorie/{id}/add', name: 'add_topic')]
+  #[IsGranted('ROLE_USER')]
   public function addCategorieTopic(ManagerRegistry $doctrine, Categorie $categorie = null, Request $request): Response
   {
     $post = $request->request;
@@ -79,6 +82,7 @@ class TopicController extends AbstractController
   }
 
   #[Route('/topic/{id}/edit', name: 'edit_topic')]
+  #[IsGranted('ROLE_USER')]
   public function edit(ManagerRegistry $doctrine, Topic $topic = null, Request $request): Response
   {
     $form = $this->createForm(TopicType::class, $topic);
@@ -106,6 +110,7 @@ class TopicController extends AbstractController
   }
 
   #[Route('/topic/{id}/delete', name: 'delete_topic')]
+  #[IsGranted('ROLE_USER')]
   public function deltopic(Topic $topic, ManagerRegistry $doctrine): Response
   {
     // Manager de doctrine, permet d'acceder au persist et au flush
@@ -117,6 +122,7 @@ class TopicController extends AbstractController
   }
 
   #[Route('/topic/{id}/verouiller', name: 'verouiller_topic')]
+  #[IsGranted('ROLE_USER')]
   public function verouillerTopic(Topic $topic, ManagerRegistry $doctrine): Response
   {
     $entityManager = $doctrine->getManager();
@@ -132,6 +138,7 @@ class TopicController extends AbstractController
   }
 
   #[Route('/topic/{id}/resoudre', name: 'resoudre_topic')]
+  #[IsGranted('ROLE_USER')]
   public function resoudreTopic(Topic $topic, ManagerRegistry $doctrine): Response
   {
     $entityManager = $doctrine->getManager();

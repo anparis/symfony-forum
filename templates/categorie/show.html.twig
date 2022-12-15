@@ -21,6 +21,7 @@
   {% for topic in categorie.topics %}
   <ul>
     <li><a href="{{path('show_topic', {'id':topic.id})}}">{{topic}}</a>
+      {% if(app.user) %}
       <p>
         {% if not topic.verouille and not topic.resolu%}
           <a href="{{path('verouiller_topic', {'id':topic.id})}}">Verouiller</a>
@@ -41,9 +42,12 @@
       </p>
       <p><a href="{{path('edit_topic', {'id':topic.id})}}">edit</a> / <a
           href="{{path('delete_topic', {'id':topic.id})}}">delete</a></p>
+      {% endif %}
+
     </li>
   </ul>
   {% endfor %}
+  {% if(app.user) %}
   <h2>Créer un nouveau Topic</h2>
   <form method="POST" action="{{path('add_topic',{'id':categorie.id})}}">
     <p>
@@ -56,5 +60,6 @@
     </p>
     <input type="submit" name="submit">
   </form>
+  {% endif %}
 </div>
 {% endblock %}

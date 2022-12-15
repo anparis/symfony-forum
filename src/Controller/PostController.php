@@ -12,6 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PostController extends AbstractController
@@ -26,6 +27,7 @@ class PostController extends AbstractController
   }
 
   #[Route('/topic/{id}/post/add', name: 'add_post')]
+  #[IsGranted('ROLE_USER')]
   public function add(Topic $topic, Request $request, ManagerRegistry $doctrine)
   {
     $post = $request->request;
@@ -57,6 +59,7 @@ class PostController extends AbstractController
   }
 
   #[Route('/post/{id}/edit', name: 'edit_post')]
+  #[IsGranted('ROLE_USER')]
   public function edit(ManagerRegistry $doctrine, Post $post = null, Request $request): Response
   {
     $form = $this->createForm(PostType::class, $post);
@@ -84,6 +87,7 @@ class PostController extends AbstractController
   }
 
   #[Route('/post/{id}/delete', name: 'delete_post')]
+  #[IsGranted('ROLE_USER')]
   public function delpost(Post $post, ManagerRegistry $doctrine): Response
   {
     // Manager de doctrine, permet d'acceder au persist et au flush
