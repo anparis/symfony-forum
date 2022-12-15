@@ -38,6 +38,7 @@
   <ul>
     <li>{{post}}</li>
     {% if app.user and app.user.id==topic.auteur.id %}
+    <p>{{post.datePublication | date("d/m/Y à G:i:s")}}</p>
     <p><a href="{{path('edit_post', {'id':post.id})}}">edit</a>/<a
         href="{{path('delete_post', {'id':post.id})}}">delete</a></p>
     {% endif %}

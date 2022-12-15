@@ -16,11 +16,13 @@
     padding: 2px 6px;
   }
 </style>
-<div class="example-wrapper">
 <a href="{{path('app_categorie')}}">Revenir aux catégories</a>
+<div class="example-wrapper">
+  <h1>Liste Topics</h1>
   {% for topic in categorie.topics %}
   <ul>
     <li><a href="{{path('show_topic', {'id':topic.id})}}">{{topic}}</a>
+      <p>{{topic.datePublication | date("d/m/Y à G:i:s")}}</p>
       {% if app.user and app.user.id==topic.auteur.id %}
       <p>
         {% if not topic.verouille and not topic.resolu%}
