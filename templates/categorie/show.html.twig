@@ -4,14 +4,36 @@
 
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+  .example-wrapper {
+    margin: 1em auto;
+    max-width: 800px;
+    width: 95%;
+    font: 18px/1.5 sans-serif;
+  }
+
+  .example-wrapper code {
+    background: #F5F5F5;
+    padding: 2px 6px;
+  }
 </style>
 <div class="example-wrapper">
-    {% for topic in categorie.topics %}
-      <ul>
-        <li><a href="{{path('show_topic', {'id':topic.id})}}">{{topic}}</a> ({{topic.datePublication}})</li>
-      </ul>
-    {% endfor %}
+  {% for topic in categorie.topics %}
+  <ul>
+    <li><a href="{{path('show_topic', {'id':topic.id})}}">{{topic}}</a></li>
+    <p><a href="{{path('edit_topic', {'id':topic.id})}}">edit</a>/<a href="{{path('delete_topic', {'id':topic.id})}}">delete</a></p>
+  </ul>
+  {% endfor %}
+  <h2>Créer un nouveau Topic</h2>
+  <form method="POST" action="{{path('add_topic',{'id':categorie.id})}}">
+    <p>
+      <label for="titreTopic">Intitulé du topic</label>
+      <input type="text" name="titreTopic" id="titreTopic" required>
+    </p>
+    <p>
+      <label for="premierPost">Premier message</label>
+      <textarea type="text" name="premierPost" id="premierPost" required></textarea>
+    </p>
+    <input type="submit" name="submit">
+  </form>
 </div>
 {% endblock %}

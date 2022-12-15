@@ -69,9 +69,9 @@ class Post
         return $this;
     }
 
-    public function getDatePublication(): ?string
+    public function getDatePublication(): ?\DateTime
     {
-        return $this->date_publication->format('\L\e d/m/Y à H:i:s');
+        return $this->date_publication;
     }
 
     public function setDatePublication(\DateTimeInterface $date_publication): self

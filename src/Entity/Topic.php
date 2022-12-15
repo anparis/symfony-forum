@@ -6,6 +6,7 @@ use IntlDateFormatter;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TopicRepository;
+use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -21,10 +22,10 @@ class Topic
     private ?string $titre = null;
 
     #[ORM\Column]
-    private ?bool $verouille = null;
+    private ?bool $verouille = false;
 
     #[ORM\Column]
-    private ?bool $resolu = null;
+    private ?bool $resolu = false;
 
     #[ORM\ManyToOne(inversedBy: 'topics')]
     #[ORM\JoinColumn(nullable: false)]
@@ -141,9 +142,9 @@ class Topic
         return $this;
     }
 
-    public function getDatePublication(): ?string
+    public function getDatePublication(): ?\DateTime
     {
-        return $this->date_publication->format('\L\e d/m/Y à H:i:s');
+        return $this->date_publication;
     }
 
     public function setDatePublication(\DateTimeInterface $date_publication): self

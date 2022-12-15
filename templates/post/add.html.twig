@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formulaire des Posts{% endblock %}
+
+{% block body %}
+<main>
+<h1> Edit Post </h1>
+
+{{ form_start(formPost) }}
+  {{ form_row(formPost.texte) }}
+  {{ form_row(formPost.date_publication) }}
+{{ form_end(formPost) }}
+</main>
+{% endblock %}

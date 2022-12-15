@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formulaire des Topics{% endblock %}
+
+{% block body %}
+<main>
+<h1> Edit Topic </h1>
+
+{{ form_start(formTopic) }}
+  {{ form_row(formTopic.titre) }}
+  {{ form_row(formTopic.date_publication) }}
+{{ form_end(formTopic) }}
+</main>
+{% endblock %}
