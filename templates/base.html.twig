@@ -20,17 +20,20 @@
 <body>
   <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
+
       {% if app.user %}
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a href="{{ path('app_categorie') }}">Categories</a></li>
-        <li class="nav-item"><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+      <ul class="navbar-nav">
+        <li class="nav-item"><a href="{{ path('app_categorie') }}">🏡 Maison</a></li>
+        <li class="nav-item"><a class="link-danger" href="{{ path('app_logout') }}">Déconnexion</a></li>
       </ul>
       {% else %}
-      <li class="nav-item"><a href="{{ path('app_categorie') }}">Categories</a></li>
-      <li class="nav-item"><a class="btn" href="{{ path('app_register') }}">Inscription</a></li>
-      <li class="nav-item"><a class="btn" href="{{ path('app_login') }}">Connexion</a></li>
+      <ul class="navbar-nav">
+        <li class="nav-item"><a href="{{ path('app_categorie') }}">Maison</a></li>
+        <li class="nav-item"><a class="btn" href="{{ path('app_register') }}">Inscription</a></li>
+        <li class="nav-item"><a class="btn" href="{{ path('app_login') }}">Connexion</a></li>
+        </ul>
       {% endif %}
-    </div>
+      </div>
   </nav>
   {% block body %}{% endblock %}
 </body>

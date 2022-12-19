@@ -32,14 +32,16 @@
   </ul>
   {% endfor %}
   {% if(app.user) %}
-  <h2>Créer un nouveau Post</h2>
+  <div class="add-class">
+  <h2>Répondre au topic</h2>
   <form method="POST" action="{{path('add_post',{'id':topic.id})}}">
-    <p>
-      <label for="post">Nouveau Post</label>
-      <textarea type="text" name="post" id="post" required></textarea>
-    </p>
+    <div class="mb-3">
+      <label for="post" class="form-label">Nouveau Post</label>
+      <textarea class="form-control" type="text" name="post" id="post" placeholder="Écrire.." required></textarea>
+    </div>
     <button class="btn btn-primary" type="submit" name="submit">Ajouter</button>
   </form>
+</div>
   {% endif %}
 </div>
 {% endblock %}

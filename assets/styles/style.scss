@@ -1,16 +1,29 @@
+$primary: darken(#428bca, 10%);
+$white: hsl(0, 0%, 100%);
+
 @import "~bootstrap/scss/bootstrap";
 
 body {
-    background-color: white;
+    background-color: $white;
     nav{
-      ul{
+      .navbar-nav{
         li{
           padding: 10px;
         }
       }
     }
 
-    .btn-categorie{
-      margin: 2em;
+    p{
+      margin:inherit;
+    }
+    
+    .container{
+      padding: 20px;
+
+    }
+
+    .add-form{
+      margin-top: 40px;
+      width: fit-content;
     }
 }

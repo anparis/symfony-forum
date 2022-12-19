@@ -4,61 +4,59 @@
 
 {% block body %}
 
-<div class="container py-4 px-3 mx-auto">
+<div class="container py-4 px-3">
   <a class="btn btn-light" href="{{path('app_categorie')}}">Revenir aux catégories</a>
   <h1>Liste Topics</h1>
   {% for topic in categorie.topics %}
-  <ul>
-    <div class="card">
+    <div class="card m-4">
       <div class="card-header">
         <a href="{{path('show_topic', {'id':topic.id})}}">{{topic}}</a>
       </div>
       <div class="card-body">
-        
+          <div class="d-flex">
+          <p class="px-2">{{topic.datePublication | date("d/m/Y à G:i:s")}}</p>
+          <p class="px-2">{{topic.posts | length}} <i class="fas fa-comment-alt"></i></p>
+          </div>
+          {% if app.user and app.user.id==topic.auteur.id %}
+          <div class="d-flex">
+          <p class="px-2">
+            {% if not topic.verouille and not topic.resolu %}
+            <a href="{{path('verouiller_topic', {'id':topic.id})}}"><i class="fa fa-lock" aria-hidden="true"></i></a>
+            <a href="{{path('resoudre_topic', {'id':topic.id})}}"><i class="fas fa-check-square"></i></a>
+            {% else %}
+            {% if topic.verouille %}
+            <a href="{{path('verouiller_topic', {'id':topic.id})}}"><i class="fa fa-unlock-alt" aria-hidden="true"></i></a>
+            {% endif %}
+            {% if topic.resolu %}
+            <a href="{{path('resoudre_topic', {'id':topic.id})}}"><i class="fas fa-user-edit"></i></a>
+            {% endif %}
+            {% endif %}
+          </p>
+          <p class="px-4"><a href="{{path('edit_topic', {'id':topic.id})}}"><i class="fas fa-edit"></i></a>  
+            <a href="{{path('delete_topic', {'id':topic.id})}}"><i class="fa fa-trash" aria-hidden="true"></i>
+            </a></p>
+          </div>
+          {% endif %}
       </div>
     </div>
-    <li>
-      <div class="d-flex">
-      <p class="px-2">{{topic.datePublication | date("d/m/Y à G:i:s")}}</p>
-      <p class="px-2">{{topic.posts | length}} <i class="fas fa-comment-alt"></i></p>
-      </div>
-      {% if app.user and app.user.id==topic.auteur.id %}
-      <div class="d-flex">
-      <p class="px-2">
-        {% if not topic.verouille and not topic.resolu %}
-        <a href="{{path('verouiller_topic', {'id':topic.id})}}"><i class="fa fa-lock" aria-hidden="true"></i></a>
-        <a href="{{path('resoudre_topic', {'id':topic.id})}}"><i class="fas fa-check-square"></i></a>
-        {% else %}
-        {% if topic.verouille %}
-        <a href="{{path('verouiller_topic', {'id':topic.id})}}"><i class="fa fa-unlock-alt" aria-hidden="true"></i></a>
-        {% endif %}
-        {% if topic.resolu %}
-        <a href="{{path('resoudre_topic', {'id':topic.id})}}"><i class="fas fa-user-edit"></i></a>
-        {% endif %}
-        {% endif %}
-      </p>
-      <p class="px-2"><a href="{{path('edit_topic', {'id':topic.id})}}"><i class="fas fa-edit"></i></a>  
-        <a href="{{path('delete_topic', {'id':topic.id})}}"><i class="fa fa-trash" aria-hidden="true"></i>
-        </a></p>
-      </div>
-      {% endif %}
-
-    </li>
-  </ul>
   {% endfor %}
   {% if(app.user) %}
+  <div class="add-form">
   <h2>Créer un nouveau Topic</h2>
   <form method="POST" action="{{path('add_topic',{'id':categorie.id})}}">
+    <div class="mb-3">
     <p>
-      <label for="titreTopic">Intitulé du topic</label>
-      <input type="text" name="titreTopic" id="titreTopic" required>
+      <label for="titreTopic" class="form-label">Intitulé du topic</label>
+      <input type="text" name="titreTopic" id="titreTopic" class="form-control" required>
     </p>
     <p>
-      <label for="premierPost">Premier message</label>
-      <textarea type="text" name="premierPost" id="premierPost" required></textarea>
+      <label for="premierPost" class="form-label">Premier message</label>
+      <textarea type="text" name="premierPost" id="premierPost" class="form-control" required></textarea>
     </p>
-    <input type="submit" name="submit">
+  </div>
+    <button class="btn btn-primary" type="submit" name="submit">Ajouter</button>
   </form>
+</div>
   {% endif %}
 </div>
 {% endblock %}
