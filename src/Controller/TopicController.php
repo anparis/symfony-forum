@@ -37,7 +37,6 @@ class TopicController extends AbstractController
     if ($post->has('submit') && $titreTopic && $premierPost && $user_id) {
       $entityManager = $doctrine->getManager();
 
-      // default -> to be replaced with connected user
       $auteur =  $doctrine->getRepository(Auteur::class)->findOneBy(['id' => $user_id]);
       // give actual date to every topics created
       $date = new DateTime();

@@ -7,7 +7,7 @@
 <div class="container py-4 px-3">
   <a class="btn btn-light" href="{{path('app_categorie')}}">Revenir aux catégories</a>
   <h1>Liste Topics</h1>
-  {% for topic in categorie.topics %}
+  {% for topic in topics %}
     <div class="card m-4">
       <div class="card-header">
         <a href="{{path('show_topic', {'id':topic.id})}}">{{topic}}</a>
@@ -40,6 +40,9 @@
       </div>
     </div>
   {% endfor %}
+  <div class="pagination">
+    {{ knp_pagination_render(topics)}}
+  </div>
   {% if(app.user) %}
   <div class="add-form">
   <h2>Créer un nouveau Topic</h2>

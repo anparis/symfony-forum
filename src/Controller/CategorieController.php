@@ -6,15 +6,16 @@ use App\Entity\Categorie;
 use App\Form\CategorieType;
 use App\Repository\CategorieRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CategorieController extends AbstractController
 {
-  #[Route('/categorie', name: 'app_categorie')]
+  #[Route('/', name: 'app_categorie')]
   public function index(CategorieRepository $cr): Response
   {
     $categories = $cr->findAll();
@@ -86,9 +87,12 @@ class CategorieController extends AbstractController
   }
 
   #[Route('/categorie/{id}', name: 'show_categorie')]
-  public function showTopics(Categorie $cat): Response
+  public function showTopics(Categorie $cat,  PaginatorInterface $paginator, Request $request): Response
   {
+    $topics = $paginator->paginate($cat->getTopics(), $request->query->getInt('page',1), 5);
+
     return $this->render('categorie/show.html.twig', [
+      'topics' => $topics,
       'categorie' => $cat
     ]);
   }

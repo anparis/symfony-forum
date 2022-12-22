@@ -19,11 +19,26 @@ body {
     
     .container{
       padding: 20px;
-
     }
 
     .add-form{
       margin-top: 40px;
       width: fit-content;
+    }
+
+    .pagination{
+      margin-top: 30px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      font-size: 1em;
+      a{
+        text-decoration: none;
+      }
+      .current{
+        font-weight: 800;
+      }
     }
 }
